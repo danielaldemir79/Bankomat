@@ -8,16 +8,14 @@ namespace Bankomat
 {
     internal class Customer
     {
-        public string Name { get; }
-        public int Personnummer { get; }
-       
+        public Person Person { get; }
+        public BankAccount Account { get; }
         private int pinCode;
         public int PinCode
         {
-            get { return pinCode; }
+            get => pinCode;
             set
             {
-                // Kontrollera att PIN är exakt 4 siffror
                 if (value >= 1000 && value <= 9999)
                     pinCode = value;
                 else
@@ -25,15 +23,11 @@ namespace Bankomat
             }
         }
 
-
-        public Customer(string name, int personummer)
+        public Customer(string name, float personnummer)
         {
-            Name = name;
-            Personnummer = personummer;
-            PinCode = 1234; // Default PIN code, can be changed later
+            Person = new Person(name, personnummer);
+            Account = new BankAccount(1000m);
+            PinCode = 1234; // Hårdkodad PIN
         }
-
-       
-        
     }
 }

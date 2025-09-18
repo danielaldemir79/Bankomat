@@ -9,14 +9,13 @@
 
             decimal balance = 1000m;
 
-            var Customer1 = new Customer("Kalle", 1234567890);
-            var minPerson = new Person("Kalle", 1234567890);
-            var mittKonto = new BankAccount(balance);
+            var Customer1 = new Customer("Carl Johansson", 194505053555);
+           
          
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("****************************");
             Console.WriteLine("*         BANKOMAT       *");
-            Console.WriteLine($"      Välkommen {minPerson.Name}!");
+            Console.WriteLine($"      Välkommen {Customer1.Person.Name}!");
             Console.WriteLine("****************************");
             Console.ResetColor();
             Console.WriteLine();
@@ -53,11 +52,11 @@
                         Console.WriteLine("INSÄTTNING");
                         Console.ResetColor();
                         Console.WriteLine();
-                        Console.WriteLine($"Ditt saldo är {mittKonto.GetBalance()}");
+                        Console.WriteLine($"Ditt saldo är {Customer1.Account.GetBalance():C2}");
                         Console.WriteLine();
                         Console.Write("Ange belopp att sätta in: ");
                         decimal deposit = GetDecimal();
-                        mittKonto.Deposit(deposit);
+                        Customer1.Account.Deposit(deposit);
                         break;
 
                     case 2:
@@ -66,17 +65,17 @@
                         Console.WriteLine("UTTAG");
                         Console.ResetColor();
                         Console.WriteLine();
-                        Console.WriteLine($"Ditt saldo är {mittKonto.GetBalance()}");
+                        Console.WriteLine($"Ditt saldo är {Customer1.Account.GetBalance():C2}");
                         Console.WriteLine();
                         Console.Write("Ange belopp att ta ut: ");
                         decimal withdraw = GetDecimal();
-                        mittKonto.Withdraw(withdraw);
+                        Customer1.Account.Withdraw(withdraw);
                         break;
 
                     case 3:
                         Console.Clear();
                         Console.WriteLine();
-                        Console.WriteLine($"Ditt saldo är {mittKonto.GetBalance()}");
+                        Console.WriteLine($"Ditt saldo är {Customer1.Account.GetBalance():C2}");
                         Console.WriteLine();
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
@@ -104,7 +103,7 @@
                         else
                         {
                             Console.ForegroundColor= ConsoleColor.Red;
-                            Console.WriteLine("Pinkoden måste vara exakt 4 siffror lång.");
+                            Console.WriteLine("Pinkoden måste vara exakt 4 siffror lang.");
                             Console.ResetColor();
                             Console.WriteLine();
                             Console.WriteLine("Tryckk på valfri tangent för att fortsätta...");

@@ -10,8 +10,7 @@ namespace Bankomat
     internal class BankAccount
     {
         private decimal balance;
-        
-        public decimal Balance { get { return balance; } }
+        public decimal Balance { get {return balance;} }
         public BankAccount(decimal yourBalance)
         {
             balance = yourBalance;
@@ -26,6 +25,8 @@ namespace Bankomat
            
         }
 
+        
+        
         public void Deposit(decimal amount)
         {
             if (amount <= 0)
@@ -52,6 +53,10 @@ namespace Bankomat
             Console.ResetColor();
             Console.ReadKey();
         }
+       
+        
+        
+        
         public void Withdraw(decimal amount)
         {
             if (amount <= 0)
