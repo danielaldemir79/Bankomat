@@ -13,20 +13,27 @@
             var minPerson = new Person("Kalle", 1234567890);
             var mittKonto = new BankAccount(balance);
          
-
-            Console.WriteLine($"Välkommen {minPerson.Name} till Bankomaten!");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("****************************");
+            Console.WriteLine("*         BANKOMAT       *");
+            Console.WriteLine($"      Välkommen {minPerson.Name}!");
+            Console.WriteLine("****************************");
+            Console.ResetColor();
             Console.WriteLine();
 
             bool inloggad = LoggaIn(Customer1, antalFörsök);
             
             if (!inloggad)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Du har misslyckats med inloggningen. Programmet avslutas.");
+                Console.ResetColor();
                 return;
-            
+
             }
-            
-            Console.WriteLine();
+          
+
+                Console.WriteLine();
             
 
             
@@ -41,29 +48,44 @@
                 switch (val)
                 {
                     case 1:
-                        Console.WriteLine("Du har valt att sätta in pengar.");
+                        Console.Clear();
+                        Console.ForegroundColor= ConsoleColor.Green;
+                        Console.WriteLine("INSÄTTNING");
+                        Console.ResetColor();
+                        Console.WriteLine();
                         Console.WriteLine($"Ditt saldo är {mittKonto.GetBalance()}");
                         Console.WriteLine();
                         Console.Write("Ange belopp att sätta in: ");
-                        decimal deposit = GetDouble();
+                        decimal deposit = GetDecimal();
                         mittKonto.Deposit(deposit);
                         break;
 
                     case 2:
-                        Console.WriteLine("Du har valt att ta ut pengar.");
+                        Console.Clear();
+                        Console.ForegroundColor= ConsoleColor.Green;
+                        Console.WriteLine("UTTAG");
+                        Console.ResetColor();
+                        Console.WriteLine();
                         Console.WriteLine($"Ditt saldo är {mittKonto.GetBalance()}");
                         Console.WriteLine();
                         Console.Write("Ange belopp att ta ut: ");
-                        decimal withdraw = GetDouble();
+                        decimal withdraw = GetDecimal();
                         mittKonto.Withdraw(withdraw);
                         break;
 
                     case 3:
-                        Console.WriteLine("Du har valt att visa saldo.");
+                        Console.Clear();
+                        Console.WriteLine();
                         Console.WriteLine($"Ditt saldo är {mittKonto.GetBalance()}");
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
+                        Console.ResetColor();
+                        Console.ReadKey();
                         break;
 
                     case 4: 
+                        Console.Clear();
                         Console.WriteLine("Du har valt att ändra din pinkod.");
                         Console.Write("Ange ny pinkod (4 siffror): ");
                         int newPin = GetInt();
@@ -71,21 +93,34 @@
                         if (newPin.ToString().Length == 4)
                         {
                             Customer1.PinCode = newPin;
+                            Console.WriteLine();
+                            Console.ForegroundColor= ConsoleColor.Green;
                             Console.WriteLine("Din pinkod har ändrats.");
+                            Console.ResetColor();
+                            Console.WriteLine();
+                            Console.WriteLine("Tryckk på valfri tangent för att fortsätta...");
+                            Console.ReadKey();
                         }
                         else
                         {
+                            Console.ForegroundColor= ConsoleColor.Red;
                             Console.WriteLine("Pinkoden måste vara exakt 4 siffror lång.");
+                            Console.ResetColor();
+                            Console.WriteLine();
+                            Console.WriteLine("Tryckk på valfri tangent för att fortsätta...");
+                            Console.ReadKey();
                         }
                         break;
                     
                     case 5:
-                        Console.WriteLine("Du har valt att avsluta.");
+                        Console.WriteLine("Du är nu utloggad");
                         Console.WriteLine("Välkommen åter!");
                         break;
 
                     default:
+                        Console.ForegroundColor= ConsoleColor.Red;
                         Console.WriteLine("Du har angett felaktigt val");
+                        Console.ResetColor();
                         break;
                 }
             }
@@ -99,6 +134,15 @@
        
         static void ShowMenu()
         {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("****************************");
+            Console.WriteLine("*         BANKOMAT         *");
+            Console.WriteLine("*         LINKÖPING        *");
+            Console.WriteLine("****************************");
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine("Välj ett av följande alternativ:");
             Console.WriteLine();
             Console.WriteLine("1. Sätt in pengar");
             Console.WriteLine("2. Ta ut pengar");
@@ -123,11 +167,11 @@
 
         }
 
-        public static int GetDouble()
+        public static decimal GetDecimal()
         {
-            int tal;
+            decimal tal;
 
-            while (!int.TryParse(Console.ReadLine(), out tal))
+            while (!decimal.TryParse(Console.ReadLine(), out tal))
             {
                 Console.WriteLine("Du har angett ett felaktigt format");
             }
@@ -141,19 +185,23 @@
             int försökKvar = antalFörsök;
             while (försökKvar > 0)
             {
-                Console.WriteLine("Ange din pinkod: ");
+                Console.Write("Ange din pinkod: ");
                 int angivenKod = GetInt();
                 if (angivenKod == customer.PinCode)
                 {
+                    Console.ForegroundColor= ConsoleColor.Green;
                     Console.WriteLine();
                     Console.WriteLine("Inloggning lyckades!");
+                    Console.ResetColor();
                     return true;
                 }
                 else
                 {
                     försökKvar--;
                     Console.WriteLine();
+                    Console.ForegroundColor= ConsoleColor.Red;
                     Console.WriteLine($"Felaktig pinkod. Du har {försökKvar} försök kvar.");
+                    Console.ResetColor();
                 }
             }
 
