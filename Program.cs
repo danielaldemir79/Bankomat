@@ -28,9 +28,10 @@
             }
 
             // Inloggningen lyckades
+            Console.ForegroundColor= ConsoleColor.Blue;
             Console.WriteLine();    
             Console.WriteLine($"Välkommen {Customer1.Person.Name}, {Customer1.Person.Personnummer}");
-                
+            Console.ResetColor();
             Console.WriteLine();
             
 
@@ -88,7 +89,9 @@
                         Console.Clear();
                         Console.WriteLine("Du har valt att ändra din pinkod.");
 
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("Mata in ditt befintliga pinkod");
+                        Console.ResetColor();
                         int currentPin = GetInt();              // Ändring får enbart ske vid inmatning aav aktuell pin först
                         if (currentPin != Customer1.PinCode)    // Felaktig pin hanteras här. Man får då inte ändra pin.
                         {
@@ -145,15 +148,17 @@
 
 
                          case 5: // Avsluta
+                            Console.ForegroundColor= ConsoleColor.Yellow;
                             Console.WriteLine("Du är nu utloggad");
                             Console.WriteLine("Välkommen åter!");
-                            break;
+                            Console.ResetColor();
+                        break;
 
                          default: // Felaktigt val
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Du har angett felaktigt val");
                             Console.ResetColor();
-                             break;
+                            break;
 
 
 
@@ -197,9 +202,11 @@
 
             while (!int.TryParse(Console.ReadLine(), out helTal))
             {
+                Console.ForegroundColor= ConsoleColor.Red;
                 Console.WriteLine("Du har angett ett felaktigt format");
+                Console.ResetColor();
             }
-
+            
             return helTal;
 
         }
@@ -210,9 +217,11 @@
 
             while (!decimal.TryParse(Console.ReadLine(), out tal))
             {
+                Console.ForegroundColor= ConsoleColor.Red;
                 Console.WriteLine("Du har angett ett felaktigt format");
+                Console.ResetColor();
             }
-
+            
             return tal;
 
         }
