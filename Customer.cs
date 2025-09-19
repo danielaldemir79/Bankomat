@@ -23,11 +23,11 @@ namespace Bankomat
             }
         }
 
-        public Customer(string name, float personnummer)
+        public Customer(string name, string personnummer)
         {
             Person = new Person(name, personnummer);
-            Account = new BankAccount(1000m);
-            PinCode = 1234; // Hårdkodad PIN
+            PinCode = 1234; // Tillfällig pinkod
+            Account = new BankAccount(1000m); // Startar med 0 kr på kontot
         }
     }
 }

@@ -9,10 +9,10 @@ namespace Bankomat
     internal class Person
     {
         public string Name { get; }
-        public float Personnummer { get; }
+        public string Personnummer { get; }
 
 
-        public Person(string name, float personnummer)
+        public Person(string name, string personnummer)
         {
             Name = name;
             Personnummer = personnummer;

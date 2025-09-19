@@ -14,7 +14,6 @@ namespace Bankomat
         public BankAccount(decimal yourBalance)
         {
             balance = yourBalance;
-            
 
         }
 
@@ -40,6 +39,7 @@ namespace Bankomat
                 Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
                 Console.ResetColor();
                 Console.ReadKey();
+                Console.Clear();
                 return;
             }
 
@@ -52,6 +52,7 @@ namespace Bankomat
             Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
             Console.ResetColor();
             Console.ReadKey();
+            Console.Clear();
         }
        
         
@@ -69,6 +70,7 @@ namespace Bankomat
                 Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
                 Console.ResetColor();
                 Console.ReadKey();
+                Console.Clear();
                 return;
             }
             if (amount > balance)
@@ -81,6 +83,7 @@ namespace Bankomat
                 Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
                 Console.ResetColor();
                 Console.ReadKey();
+                Console.Clear();
                 return;
             }
             balance -= amount;
@@ -90,6 +93,7 @@ namespace Bankomat
             Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
             Console.ResetColor();
             Console.ReadKey();
+            Console.Clear();
 
         }
     

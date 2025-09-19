@@ -7,22 +7,18 @@
             
             const int antalFörsök = 3;
 
-            decimal balance = 1000m;
+            var Customer1 = new Customer("Carl Johansson", "19450505-3555"); // Skapar en kund med namn och personnummer
 
-            var Customer1 = new Customer("Carl Johansson", 194505053555);
-           
-         
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("****************************");
-            Console.WriteLine("*         BANKOMAT       *");
-            Console.WriteLine($"      Välkommen {Customer1.Person.Name}!");
-            Console.WriteLine("****************************");
-            Console.ResetColor();
-            Console.WriteLine();
 
-            bool inloggad = LoggaIn(Customer1, antalFörsök);
-            
-            if (!inloggad)
+            Console.ForegroundColor = ConsoleColor.Green;   // Välkommen meny
+            Console.WriteLine("******************************");
+            Console.WriteLine("  *       BANKOMAT        *");
+            Console.WriteLine($"         Välkommen");
+            Console.WriteLine("******************************");
+
+            bool inloggad = LoggaIn(Customer1, antalFörsök);    // Anropar inloggningsmetoden
+
+            if (!inloggad) // Om inloggningen misslyckas
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Du har misslyckats med inloggningen. Programmet avslutas.");
@@ -30,23 +26,26 @@
                 return;
 
             }
-          
 
-                Console.WriteLine();
+            // Inloggningen lyckades
+            Console.WriteLine();    
+            Console.WriteLine($"Välkommen {Customer1.Person.Name}, {Customer1.Person.Personnummer}");
+                
+            Console.WriteLine();
             
 
             
             int val = 0;
 
-            while (val != 5)
+            while (val != 5)  //    Avsluta programmet vid val 5
             {
 
                 ShowMenu();
                 val = GetInt();
 
-                switch (val)
+                switch (val) // Hanterar menyvalen
                 {
-                    case 1:
+                    case 1:                 // Insättning. Anropar Deposit-metoden i BankAccount-klassen
                         Console.Clear();
                         Console.ForegroundColor= ConsoleColor.Green;
                         Console.WriteLine("INSÄTTNING");
@@ -56,10 +55,11 @@
                         Console.WriteLine();
                         Console.Write("Ange belopp att sätta in: ");
                         decimal deposit = GetDecimal();
+
                         Customer1.Account.Deposit(deposit);
                         break;
 
-                    case 2:
+                    case 2:             // Uttag. Anropar Withdraw-metoden i BankAccount-klassen
                         Console.Clear();
                         Console.ForegroundColor= ConsoleColor.Green;
                         Console.WriteLine("UTTAG");
@@ -69,10 +69,11 @@
                         Console.WriteLine();
                         Console.Write("Ange belopp att ta ut: ");
                         decimal withdraw = GetDecimal();
+
                         Customer1.Account.Withdraw(withdraw);
                         break;
 
-                    case 3:
+                    case 3:         // Visa saldo. Anropar GetBalance-metoden i BankAccount-klassen
                         Console.Clear();
                         Console.WriteLine();
                         Console.WriteLine($"Ditt saldo är {Customer1.Account.GetBalance():C2}");
@@ -83,22 +84,53 @@
                         Console.ReadKey();
                         break;
 
-                    case 4: 
+                    case 4:        // Ändra pinkod. Verifierar att pinkoden är exakt 4 siffror och att bekräftelsekoden matchar.
                         Console.Clear();
                         Console.WriteLine("Du har valt att ändra din pinkod.");
-                        Console.Write("Ange ny pinkod (4 siffror): ");
-                        int newPin = GetInt();
-                        
-                        if (newPin.ToString().Length == 4)
+
+                        Console.WriteLine("Mata in ditt befintliga pinkod");
+                        int currentPin = GetInt();              // Ändring får enbart ske vid inmatning aav aktuell pin först
+                        if (currentPin != Customer1.PinCode)    // Felaktig pin hanteras här. Man får då inte ändra pin.
                         {
-                            Customer1.PinCode = newPin;
-                            Console.WriteLine();
-                            Console.ForegroundColor= ConsoleColor.Green;
-                            Console.WriteLine("Din pinkod har ändrats.");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Felaktig pinkod.");
                             Console.ResetColor();
                             Console.WriteLine();
                             Console.WriteLine("Tryckk på valfri tangent för att fortsätta...");
                             Console.ReadKey();
+                            break;
+                        }
+                        Console.Write("Ange ny pinkod (4 siffror): "); // Ange ny pin.  
+                        int newPin = GetInt();
+                        
+                        if (newPin.ToString().Length == 4)
+                        {
+                            Console.WriteLine("Bekräfta din nya pinkod med att mata in den igen.");
+                            int confirmPin = GetInt();
+
+                            if (confirmPin == newPin) // Bekräftelsekoden matchar
+                            {
+                                Customer1.PinCode = newPin; // Ändrar pinkoden
+
+                                Console.WriteLine();
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("Din pinkod har ändrats.");
+                                Console.ResetColor();
+                                Console.WriteLine();
+                                Console.WriteLine("Tryckk på valfri tangent för att fortsätta...");
+                                Console.ReadKey();
+                                break;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("De inmatade pinkoderna matchar inte.");
+                                Console.ResetColor();
+                                Console.WriteLine();
+                                Console.WriteLine("Tryckk på valfri tangent för att fortsätta...");
+                                Console.ReadKey();
+                            }
+
                         }
                         else
                         {
@@ -110,35 +142,42 @@
                             Console.ReadKey();
                         }
                         break;
-                    
-                    case 5:
-                        Console.WriteLine("Du är nu utloggad");
-                        Console.WriteLine("Välkommen åter!");
-                        break;
 
-                    default:
-                        Console.ForegroundColor= ConsoleColor.Red;
-                        Console.WriteLine("Du har angett felaktigt val");
-                        Console.ResetColor();
-                        break;
+
+                         case 5: // Avsluta
+                            Console.WriteLine("Du är nu utloggad");
+                            Console.WriteLine("Välkommen åter!");
+                            break;
+
+                         default: // Felaktigt val
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Du har angett felaktigt val");
+                            Console.ResetColor();
+                             break;
+
+
+
                 }
+
+
             }
+
+
            
-
-
 
         }
 
-        
-       
+
+
+
         static void ShowMenu()
         {
-            Console.Clear();
+            
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("****************************");
+            Console.WriteLine("*****************************");
             Console.WriteLine("*         BANKOMAT         *");
             Console.WriteLine("*         LINKÖPING        *");
-            Console.WriteLine("****************************");
+            Console.WriteLine("*****************************");
             Console.ResetColor();
             Console.WriteLine();
             Console.WriteLine("Välj ett av följande alternativ:");
@@ -150,7 +189,6 @@
             Console.WriteLine("5. Avsluta");
             Console.WriteLine();
         }
-
 
 
         public static int GetInt()
@@ -184,12 +222,15 @@
             int försökKvar = antalFörsök;
             while (försökKvar > 0)
             {
+                Console.ForegroundColor= ConsoleColor.Yellow;
                 Console.Write("Ange din pinkod: ");
                 int angivenKod = GetInt();
+                Console.ResetColor();
                 if (angivenKod == customer.PinCode)
                 {
                     Console.ForegroundColor= ConsoleColor.Green;
                     Console.WriteLine();
+                    Console.Clear();
                     Console.WriteLine("Inloggning lyckades!");
                     Console.ResetColor();
                     return true;
