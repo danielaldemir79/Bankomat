@@ -7,7 +7,7 @@
             
             const int antalFörsök = 3;
 
-            var Customer1 = new Customer("Carl Johansson", "19450505-3555"); // Skapar en kund med namn och personnummer
+            var Customer1 = new Customer("Elin Aldemir", "19830729-7423"); // Skapar en kund med namn och personnummer
 
 
             Console.ForegroundColor = ConsoleColor.Green;   // Välkommen meny
@@ -106,7 +106,7 @@
                         Console.Write("Ange ny pinkod (4 siffror): "); // Ange ny pin.  
                         int newPin = GetInt();
                         
-                        if (newPin.ToString().Length == 4)
+                        if (newPin.ToString().Length == 4) // Kollar att pinkoden är exakt 4 siffror lång
                         {
                             Console.WriteLine("Bekräfta din nya pinkod med att mata in den igen.");
                             int confirmPin = GetInt();
@@ -124,7 +124,7 @@
                                 Console.ReadKey();
                                 break;
                             }
-                            else
+                            else // Bekräftelsekoden matchar inte
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("De inmatade pinkoderna matchar inte.");
@@ -135,7 +135,7 @@
                             }
 
                         }
-                        else
+                        else // Felaktig längd på pinkod
                         {
                             Console.ForegroundColor= ConsoleColor.Red;
                             Console.WriteLine("Pinkoden måste vara exakt 4 siffror lang.");
@@ -175,7 +175,7 @@
 
 
 
-        static void ShowMenu()
+        static void ShowMenu()  //  Visar menyn
         {
             
             Console.ForegroundColor = ConsoleColor.Green;
@@ -196,7 +196,7 @@
         }
 
 
-        public static int GetInt()
+        public static int GetInt()  //  Hämtar heltalsvärde och hanterar felaktig inmatning
         {
             int helTal;
 
@@ -205,13 +205,14 @@
                 Console.ForegroundColor= ConsoleColor.Red;
                 Console.WriteLine("Du har angett ett felaktigt format");
                 Console.ResetColor();
+                Console.Write("Försök igen: ");
             }
             
             return helTal;
 
         }
 
-        public static decimal GetDecimal()
+        public static decimal GetDecimal()  //  Hämtar decimalvärde och hanterar felaktig inmatning
         {
             decimal tal;
 
@@ -220,6 +221,7 @@
                 Console.ForegroundColor= ConsoleColor.Red;
                 Console.WriteLine("Du har angett ett felaktigt format");
                 Console.ResetColor();
+                Console.Write("Försök igen: ");
             }
             
             return tal;
@@ -229,13 +231,13 @@
         public static bool LoggaIn(Customer customer, int antalFörsök)
         {
             int försökKvar = antalFörsök;
-            while (försökKvar > 0)
+            while (försökKvar > 0) // Loopa tills antalet försök är slut. Skulle funka smidigare med en FOR loop men vi låter detta vara denna gång :)
             {
                 Console.ForegroundColor= ConsoleColor.Yellow;
                 Console.Write("Ange din pinkod: ");
                 int angivenKod = GetInt();
                 Console.ResetColor();
-                if (angivenKod == customer.PinCode)
+                if (angivenKod == customer.PinCode) // Koden är korrekt
                 {
                     Console.ForegroundColor= ConsoleColor.Green;
                     Console.WriteLine();
@@ -246,10 +248,15 @@
                 }
                 else
                 {
-                    försökKvar--;
+                    försökKvar--;  //   Minskar antalet försök kvar
                     Console.WriteLine();
                     Console.ForegroundColor= ConsoleColor.Red;
-                    Console.WriteLine($"Felaktig pinkod. Du har {försökKvar} försök kvar.");
+                    
+                    if (försökKvar != 0)  // Visar inte denan rad vid sista försöket för att undvika onödig information
+                    {
+                      Console.WriteLine($"Felaktig pinkod. Du har {försökKvar} försök kvar.");
+                    }
+                   
                     Console.ResetColor();
                 }
             }

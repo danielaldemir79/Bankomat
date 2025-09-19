@@ -9,16 +9,16 @@ namespace Bankomat
 {
     internal class BankAccount
     {
-        private decimal balance;
-        public decimal Balance { get {return balance;} }
-        public BankAccount(decimal yourBalance)
+        private decimal balance;  // Privat fält för kontosaldo
+        public decimal Balance { get {return balance;} } // Publik egenskap för att läsa saldot
+        public BankAccount(decimal yourBalance) // Konstruktor som tar ett startvärde för saldot
         {
             balance = yourBalance;
 
         }
 
 
-    public decimal GetBalance()
+    public decimal GetBalance() // Metod för att hämta saldot
         {
             return Balance;
            
@@ -26,9 +26,9 @@ namespace Bankomat
 
         
         
-        public void Deposit(decimal amount)
+        public void Deposit(decimal amount) // Metod för att sätta in pengar
         {
-            if (amount <= 0)
+            if (amount <= 0) // Kontrollera att beloppet är större än noll. Om inte, visa felmeddelande.
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Beloppet måste vara större än noll.");
@@ -43,10 +43,10 @@ namespace Bankomat
                 return;
             }
 
-            balance += amount;
+            balance += amount; // Lägg till beloppet till saldot om det är giltigt.
 
             Console.WriteLine();
-            Console.WriteLine($"Du har satt in {amount} kr. Ditt nya saldo är {Balance} kr.");
+            Console.WriteLine($"Du har satt in {amount:C2}. Ditt nya saldo är {Balance:C2}.");
             Console.WriteLine();
             Console.ForegroundColor= ConsoleColor.Green;
             Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
@@ -58,9 +58,9 @@ namespace Bankomat
         
         
         
-        public void Withdraw(decimal amount)
+        public void Withdraw(decimal amount) // Metod för att ta ut pengar
         {
-            if (amount <= 0)
+            if (amount <= 0) // Kontrollera att beloppet är större än noll. Om inte, visa felmeddelande.
             {
                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Beloppet måste vara större än noll.");
@@ -73,7 +73,7 @@ namespace Bankomat
                 Console.Clear();
                 return;
             }
-            if (amount > balance)
+            if (amount > balance) // Kontrollera att det finns tillräckligt med saldo. Om inte, visa felmeddelande.
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Otillräckligt saldo.");
@@ -86,8 +86,8 @@ namespace Bankomat
                 Console.Clear();
                 return;
             }
-            balance -= amount;
-            Console.WriteLine($"Du har tagit ut {amount} kr. Ditt nya saldo är {Balance} kr.");
+            balance -= amount; // Dra av beloppet från saldot om det är giltigt.
+            Console.WriteLine($"Du har tagit ut {amount:C2}. Ditt nya saldo är {Balance:C2}.");
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Tryck på valfri tangent för att fortsätta...");

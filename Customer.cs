@@ -8,13 +8,13 @@ namespace Bankomat
 {
     internal class Customer
     {
-        public Person Person { get; }
-        public BankAccount Account { get; }
-        private int pinCode;
+        public Person Person { get; } // Egenskap för personen
+        public BankAccount Account { get; }  // Egenskap för bankkontot
+        private int pinCode;  // Privat fält för PIN-koden
         public int PinCode
         {
-            get => pinCode;
-            set
+            get => pinCode;  // Läs-only egenskap
+            set // Skriv-only egenskap
             {
                 if (value >= 1000 && value <= 9999)
                     pinCode = value;
@@ -25,7 +25,7 @@ namespace Bankomat
 
         public Customer(string name, string personnummer)
         {
-            Person = new Person(name, personnummer);
+            Person = new Person(name, personnummer); // Skapar en ny person
             PinCode = 1234; // Tillfällig pinkod
             Account = new BankAccount(1000m); // Startar med 0 kr på kontot
         }
